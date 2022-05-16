@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace F1MVC.Migrations
 {
     [DbContext(typeof(Formule1Context))]
-    [Migration("20220511102921_test")]
-    partial class test
+    [Migration("20220511120604_yeardistinct")]
+    partial class yeardistinct
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -238,6 +238,22 @@ namespace F1MVC.Migrations
                     b.HasIndex("CountryCode");
 
                     b.ToTable("Teams");
+                });
+
+            modelBuilder.Entity("F1Lib.Models.YearDistinct", b =>
+                {
+                    b.Property<int>("Years")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Years"), 1L, 1);
+
+                    b.Property<int>("Totalraces")
+                        .HasColumnType("int");
+
+                    b.HasKey("Years");
+
+                    b.ToTable("YearDistinct");
                 });
 
             modelBuilder.Entity("F1Lib.Models.Circuit", b =>

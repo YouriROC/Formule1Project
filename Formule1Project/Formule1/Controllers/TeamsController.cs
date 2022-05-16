@@ -10,100 +10,101 @@ using F1MVC.Data;
 
 namespace F1MVC.Controllers
 {
-    public class CountriesController : Controller
+    public class TeamsController : Controller
     {
         private readonly Formule1Context _context;
 
-        public CountriesController(Formule1Context context)
+        public TeamsController(Formule1Context context)
         {
             _context = context;
         }
 
-        // GET: Countries
+        // GET: Teams
         public async Task<IActionResult> Index()
         {
-              return _context.Countries != null ? 
-                          View(await _context.Countries.ToListAsync()) :
-                          Problem("Entity set 'Formule1Context.Countries'  is null.");
+              return _context.Teams != null ? 
+                          View(await _context.Teams.Include(t=>t.Country).ToListAsync()) :
+                          Problem("Entity set 'Formule1Context.Teams'  is null.");
         }
 
-        // GET: Countries/Details/5
-        public async Task<IActionResult> Details(string id)
+        // GET: Teams/Details/5
+        public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Countries == null)
+            if (id == null || _context.Teams == null)
             {
                 return NotFound();
             }
 
-            var country = await _context.Countries
-                .FirstOrDefaultAsync(m => m.CountryCode == id);
-            if (country == null)
+            var team = await _context.Teams.Include(t=>t.Country)
+                .FirstOrDefaultAsync(m => m.ID == id);
+            if (team == null)
             {
                 return NotFound();
             }
 
-            return View(country);
+            return View(team);
         }
 
-        // GET: Countries/Create
+        // GET: Teams/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Countries/Create
+        // POST: Teams/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CountryCode,CountryName,Code3,CountryNumber,FlagUrl")] Country country)
+        public async Task<IActionResult> Create([Bind("ID,Name,Description,Wiki")] Team team)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(country);
+                _context.Add(team);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(country);
+            return View(team);
         }
 
-        // GET: Countries/Edit/5
-        public async Task<IActionResult> Edit(string id)
+        // GET: Teams/Edit/5
+        public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Countries == null)
+            if (id == null || _context.Teams == null)
             {
                 return NotFound();
             }
 
-            var country = await _context.Countries.FindAsync(id);
-            if (country == null)
+            var team = await _context.Teams.FindAsync(id);
+            if (team == null)
             {
                 return NotFound();
             }
-            return View(country);
+            return View(team);
         }
 
-        // POST: Countries/Edit/5
+        // POST: Teams/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("CountryCode,CountryName,Code3,CountryNumber,FlagUrl")] Country country)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Name,Description,Wiki")] Team team)
         {
-            if (id != country.CountryCode)
+            if (id != team.ID)
             {
                 return NotFound();
             }
 
-
+            if (ModelState.IsValid)
+            {
                 try
                 {
-                    _context.Update(country);
+                    _context.Update(team);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CountryExists(country.CountryCode))
+                    if (!TeamExists(team.ID))
                     {
                         return NotFound();
                     }
@@ -113,50 +114,50 @@ namespace F1MVC.Controllers
                     }
                 }
                 return RedirectToAction(nameof(Index));
-            
-            return View(country);
+            }
+            return View(team);
         }
 
-        // GET: Countries/Delete/5
-        public async Task<IActionResult> Delete(string id)
+        // GET: Teams/Delete/5
+        public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Countries == null)
+            if (id == null || _context.Teams == null)
             {
                 return NotFound();
             }
 
-            var country = await _context.Countries
-                .FirstOrDefaultAsync(m => m.CountryCode == id);
-            if (country == null)
+            var team = await _context.Teams
+                .FirstOrDefaultAsync(m => m.ID == id);
+            if (team == null)
             {
                 return NotFound();
             }
 
-            return View(country);
+            return View(team);
         }
 
-        // POST: Countries/Delete/5
+        // POST: Teams/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(string id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Countries == null)
+            if (_context.Teams == null)
             {
-                return Problem("Entity set 'Formule1Context.Countries'  is null.");
+                return Problem("Entity set 'Formule1Context.Teams'  is null.");
             }
-            var country = await _context.Countries.FindAsync(id);
-            if (country != null)
+            var team = await _context.Teams.FindAsync(id);
+            if (team != null)
             {
-                _context.Countries.Remove(country);
+                _context.Teams.Remove(team);
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CountryExists(string id)
+        private bool TeamExists(int id)
         {
-          return (_context.Countries?.Any(e => e.CountryCode == id)).GetValueOrDefault();
+          return (_context.Teams?.Any(e => e.ID == id)).GetValueOrDefault();
         }
     }
 }

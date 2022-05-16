@@ -1,6 +1,7 @@
-﻿
+﻿using F1Lib.Models;
 using Microsoft.EntityFrameworkCore;
-using F1Lib.Models;
+
+ 
 
 namespace F1MVC.Data
 {
@@ -12,6 +13,7 @@ namespace F1MVC.Data
         public DbSet<Grandprix> Grandprix { get; set; }
         public DbSet<Result> Results { get; set; }
         public DbSet<Team> Teams { get; set; }
+        public DbSet<YearDistinct> YearDistinct { get; set; }
 
         public Formule1Context(DbContextOptions<Formule1Context> options) : base(options)
         {

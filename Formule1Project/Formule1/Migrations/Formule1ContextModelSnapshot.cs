@@ -238,6 +238,22 @@ namespace F1MVC.Migrations
                     b.ToTable("Teams");
                 });
 
+            modelBuilder.Entity("F1Lib.Models.YearDistinct", b =>
+                {
+                    b.Property<int>("Years")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Years"), 1L, 1);
+
+                    b.Property<int>("Totalraces")
+                        .HasColumnType("int");
+
+                    b.HasKey("Years");
+
+                    b.ToTable("YearDistinct");
+                });
+
             modelBuilder.Entity("F1Lib.Models.Circuit", b =>
                 {
                     b.HasOne("F1Lib.Models.Country", "Country")

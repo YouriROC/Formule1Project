@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace F1MVC.Migrations
 {
-    public partial class test : Migration
+    public partial class yeardistinct : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -22,6 +22,19 @@ namespace F1MVC.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Countries", x => x.CountryCode);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "YearDistinct",
+                columns: table => new
+                {
+                    Years = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Totalraces = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_YearDistinct", x => x.Years);
                 });
 
             migrationBuilder.CreateTable(
@@ -204,6 +217,9 @@ namespace F1MVC.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Results");
+
+            migrationBuilder.DropTable(
+                name: "YearDistinct");
 
             migrationBuilder.DropTable(
                 name: "Circuit");
