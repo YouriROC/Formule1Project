@@ -1,0 +1,48 @@
+﻿@model F1Lib.Models.Driver
+
+@{
+    ViewData["Title"] = Model.Name.ToString();
+}
+
+<div>
+    <img src="@Model.ImageUrl" height="140"/>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            Naam
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            Geboortedatum
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Birthdate)
+        </dd>
+        <dt class = "col-sm-2">
+			Nationaliteit:
+        </dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.Country.CountryCode)
+			<p>-</p>
+			@Html.DisplayFor(model => model.Country.CountryName)
+		</dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Wiki)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Wiki)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Gender)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Gender)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.ID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
