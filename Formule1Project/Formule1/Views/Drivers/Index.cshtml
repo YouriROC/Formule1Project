@@ -40,14 +40,21 @@
                 @Html.DisplayFor(modelItem => item.Birthdate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Wiki)
+                <a href=@item.Wiki>Wiki</a>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Gender)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ImageUrl)
-            </td>
+				@if (item.ImageUrl != null)
+                    {
+                        <a href = @item.ImageUrl><img src="@item.ImageUrl" height="50"/></a>
+                    }
+                    else
+                    {
+                        <img src="https://cdn-icons-png.flaticon.com/512/37/37943.png" height="50"/>
+                    }
+                </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
