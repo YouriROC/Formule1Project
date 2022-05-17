@@ -27,4 +27,8 @@
     <ProjectReference Include="..\F1Lib\F1Lib.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\images\flags\" />
+  </ItemGroup>
+
 </Project>
