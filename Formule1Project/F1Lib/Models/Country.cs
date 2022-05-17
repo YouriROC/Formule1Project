@@ -11,12 +11,12 @@ namespace F1Lib.Models
         [Display(Name = "Landcode")]
         [StringLength(2)]
 
-        public string CountryCode { get; set; } = string.Empty;
+        public string? CountryCode { get; set; } = string.Empty;
         [Required]
         [Display(Name = "Land")]
         [StringLength(2,ErrorMessage = "Maximumlengte voor {0} is {1} tekens")]
 
-        public string CountryName { get; set; } = string.Empty;
+        public string? CountryName { get; set; } = string.Empty;
         [RegularExpression("A-Z{3}", ErrorMessage = "Code moet bestaan uit 3 hoofdletters")]
         [Column(TypeName="char")]
         [Display(Name = "Landcode3")]
