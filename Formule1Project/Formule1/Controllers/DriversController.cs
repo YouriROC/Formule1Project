@@ -32,7 +32,7 @@ namespace F1MVC.Controllers
                 return NotFound();
             }
 
-            var driver = await _context.Drivers.Include(d => d.Country)
+            var driver = await _context.Drivers.Include(d => d.Country).Include(d => d.Races).ThenInclude(d => d.Team)
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (driver == null)
             {
