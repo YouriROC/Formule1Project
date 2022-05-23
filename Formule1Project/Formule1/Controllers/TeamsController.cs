@@ -35,7 +35,7 @@ namespace F1MVC.Controllers
                 return NotFound();
             }
 
-            var team = await _context.Teams.Include(t=>t.Country)
+            var team = await _context.Teams.Include(t => t.Country).Include(t => t.Races).ThenInclude(t => t.Driver)
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (team == null)
             {

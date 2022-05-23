@@ -11,7 +11,7 @@
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            <img src="~/images/teams/@(Model.Name).png" height = "300"  />
+            <img src="~/images/teams/@(Model.Name).png" height = "200"  />
         </dt>
         <dd>
         </dd>
@@ -33,6 +33,19 @@
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Wiki)
+        </dd>
+        <dt class = "col-sm-2">
+            Aantal overwinningen
+        </dt>
+        <dd class = "col-sm-10">
+            @Model.Races.OrderByDescending(t=>t.Date.Value).Take(3)
+            - @Model.Races.Last().Team.Races.Count()
+        </dd>
+        <dt class = "col-sm-2">
+            Coureurs
+        </dt>
+        <dd class = "col-sm-10">
+            @Model.Races.Last().Driver.Name
         </dd>
     </dl>
 </div>
