@@ -18,6 +18,6 @@ namespace F1Lib.Models
         public string? Wiki { get; set; } = string.Empty;
 
         public Country? Country { get; set; }
-        public ICollection <Result> Races { get; set; }
+        public ICollection<Result>? Races { get; set; } 
     }
 }
