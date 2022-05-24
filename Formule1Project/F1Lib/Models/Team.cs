@@ -20,6 +20,7 @@ namespace F1Lib.Models
 
         [Display(Name = "Land")]
         public Country? Country { get; set; }
+
         public ICollection<Result>? Races { get; set; } 
     }
 }

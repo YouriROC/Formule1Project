@@ -25,7 +25,6 @@ namespace F1Lib.Models
         public string? Gender { get; set; }
         [DataType(DataType.Url)]
         [Display(Name = "Foto")]
-
         public string? ImageUrl { get; set; } = string.Empty;
         public Country? Country { get; set; }
         public ICollection<Result>? Races { get; set; }
