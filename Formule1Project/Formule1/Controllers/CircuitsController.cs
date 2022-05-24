@@ -35,7 +35,7 @@ namespace F1MVC.Controllers
                 return NotFound();
             }
 
-            var circuit = await _context.Circuit.Include(t => t.Country).Include(t => t.Races).ThenInclude(t => t.Driver).Include(t => t.Races).ThenInclude(t => t.Team)
+            var circuit = await _context.Circuit.Include(t => t.Country).Include(t => t.Races).ThenInclude(t => t.Driver).ThenInclude(t => t.Races)
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (circuit == null)
             {

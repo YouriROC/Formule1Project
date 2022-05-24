@@ -51,19 +51,19 @@
             Aantal winnaars
         </dt>
         <dd class = "col-sm-10">
-            @Model.Races.First().Driver.Name
+            @Model.Races.Count()
         </dd>
         <dt class = "col-sm-2">
             3 succesvolste coureurs
         </dt>
         <dd class = "col-sm-10">
-            @Model.Races.Last().Driver.Name
+            @Model.Races.Count()
         </dd>
         <dt class = "col-sm-2">
             3 succesvolste teams
         </dt>
         <dd class = "col-sm-10">
-            @Model.Races.Last().Team.Name
+            @Model.Races.Count()
         </dd>
     </dl>
 </div>
