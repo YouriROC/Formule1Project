@@ -167,16 +167,16 @@ namespace F1MVC.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
-                    b.Property<int>("CircuitID")
+                    b.Property<int?>("CircuitID")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("DriverID")
+                    b.Property<int?>("DriverID")
                         .HasColumnType("int");
 
-                    b.Property<int>("GrandprixID")
+                    b.Property<int?>("GrandprixID")
                         .HasColumnType("int");
 
                     b.Property<byte>("Racenumber")
@@ -185,7 +185,7 @@ namespace F1MVC.Migrations
                     b.Property<byte>("Rounds")
                         .HasColumnType("tinyint");
 
-                    b.Property<int>("TeamID")
+                    b.Property<int?>("TeamID")
                         .HasColumnType("int");
 
                     b.Property<string>("Time")
@@ -238,6 +238,22 @@ namespace F1MVC.Migrations
                     b.ToTable("Teams");
                 });
 
+            modelBuilder.Entity("F1Lib.Models.YearDistinct", b =>
+                {
+                    b.Property<int>("Years")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Years"), 1L, 1);
+
+                    b.Property<int>("Totalraces")
+                        .HasColumnType("int");
+
+                    b.HasKey("Years");
+
+                    b.ToTable("YearDistinct");
+                });
+
             modelBuilder.Entity("F1Lib.Models.Circuit", b =>
                 {
                     b.HasOne("F1Lib.Models.Country", "Country")
@@ -269,27 +285,19 @@ namespace F1MVC.Migrations
                 {
                     b.HasOne("F1Lib.Models.Circuit", "Circuit")
                         .WithMany("Races")
-                        .HasForeignKey("CircuitID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CircuitID");
 
                     b.HasOne("F1Lib.Models.Driver", "Driver")
                         .WithMany("Races")
-                        .HasForeignKey("DriverID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("DriverID");
 
                     b.HasOne("F1Lib.Models.Grandprix", "Grandprix")
                         .WithMany("Races")
-                        .HasForeignKey("GrandprixID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("GrandprixID");
 
                     b.HasOne("F1Lib.Models.Team", "Team")
                         .WithMany("Races")
-                        .HasForeignKey("TeamID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("TeamID");
 
                     b.Navigation("Circuit");
 
