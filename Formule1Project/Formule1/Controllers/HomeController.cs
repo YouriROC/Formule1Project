@@ -1,4 +1,5 @@
 ﻿using F1MVC.Data;
+using F1Lib.Models;
 using Formule1.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
